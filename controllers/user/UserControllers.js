@@ -2,7 +2,7 @@ const UserModel = require("../../models/userModel");
 
 const getUserById = async (req, res, next) => {
     try {
-        const user = await UserModel.findById(req.params.id)
+        const user = await UserModel.findById(req.params.id).select('-password')
         if (!user) return res.status(404).json({
             message: 'User not found'
         })
@@ -15,7 +15,7 @@ const updateUser = async (req, res, next) => {
     try {
         const user = await UserModel.findByIdAndUpdate(req.params.id, {
             $set: req.body
-        }, { new: true })
+        }, { new: true }).select('-password')
         if (!user) return res.status(404).json({
             message: 'User not found'
         })
@@ -26,7 +26,7 @@ const updateUser = async (req, res, next) => {
 }
 const deleteUser = async (req, res, next) => {
     try {
-        const user = await UserModel.findByIdAndDelete(req.params.id, { new: true })
+        const user = await UserModel.findByIdAndDelete(req.params.id, { new: true }).select('-password')
         if (!user) return res.status(404).json({
             message: 'User not found'
         })

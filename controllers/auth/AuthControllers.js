@@ -60,7 +60,7 @@ const Login = async (req, res, next) => {
 }
 
 function generateToken(userId) {
-    const token = jwt.sign({ _id: userId }, process.env.JWT_SECRET, { expiresIn: '1h' })
+    const token = jwt.sign({ _id: userId }, process.env.JWT_SECRET, { expiresIn: '1d' })
     return token;
 }
 
